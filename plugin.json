@@ -1,0 +1,12 @@
+{
+    "ID": "afa10c8e3f9e572eb491ec9d2d2bc0a9",
+    "ActionKeyword": "md5",
+    "Name": "wox_plugin_md5",
+    "Description": "Plugin to get md5 with a string: md5 md_string",
+    "Author": "peiqianggao",
+    "Version": "1.0.0",
+    "Language": "python",
+    "Website": "https://github.com/peiqianggao/wox_plugin_md5",
+    "IcoPath": "Images/md5.png",
+    "ExecuteFileName": "main.py"
+}

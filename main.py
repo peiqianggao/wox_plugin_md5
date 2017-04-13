@@ -12,23 +12,26 @@
 import os
 import sys
 import copy
-from wox import Wox
+import clipboard
+from wox import Wox, WoxAPI
 
 result_template = {
     'Title': '{}',
-    'SubTitle': 'Copy to clipboard',
+    'SubTitle': 'Click to copy',
     'IcoPath': 'Images/md5.png',
     'JsonRPCAction': {
-        'method': 'copyToClipboard',
+        'method': 'copy_to_clipboard',
         'parameters': ['{}'],
     }
 }
 
 
-class Main(Wox):
-    def query(self, key=None):
+class Wox_md5(Wox):
+    def query(self, key):
         if not key:
-            return ["Pls specify a string for md5sum :)"]
+            return [{"Title": "Please specify a string for md5sum :)",
+                     "IcoPath": "Images/md5.png"
+                     }]
 
         if sys.version_info[0] == 3:
             import hashlib
@@ -52,9 +55,18 @@ class Main(Wox):
 
         return results
 
-    def copyToClipboard(self, value):
-        command = 'echo ' + value.strip() + '| clip'
-        os.system(command)
+    def copy_to_clipboard(self, value):
+        """
+        Copies the given value to the clipboard.
+        WARNING:Uses yet-to-be-known Win32 API and ctypes black magic to work.
+        """
+        try:
+            clipboard.put(value)
+        except:
+            command = 'echo ' + value.strip() + '| clip'
+            os.system(command)
+
+
 
 if __name__ == '__main__':
-    Main()
+    Wox_md5()
